@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cd4c47c-b72e-4650-80cb-8e7155e64fc5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idEleicao" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     candidato.`idCandidato` AS candidato_idCandidato,
+     candidato.`nome` AS candidato_nome,
+     candidato.`numero` AS candidato_numero,
+     candidato.`foto` AS candidato_foto,
+     candidato.`qtdVotosRecebidos` AS candidato_qtdVotosRecebidos,
+     eleicao_has_candidato.`eleicao_ideleicao` AS eleicao_has_candidato_eleicao_ideleicao,
+     eleicao_has_candidato.`candidato_idCandidato` AS eleicao_has_candidato_candidato_idCandidato,
+     eleicao.`ideleicao` AS eleicao_ideleicao,
+     eleicao.`nome` AS eleicao_nome,
+     eleicao.`dataInicial` AS eleicao_dataInicial,
+     eleicao.`dataFinal` AS eleicao_dataFinal,
+     eleicao.`tipoEleicao` AS eleicao_tipoEleicao,
+     eleicao.`qtdVotosBrancos` AS eleicao_qtdVotosBrancos,
+     eleicao.`qtdVotosNulos` AS eleicao_qtdVotosNulos,
+     eleicao.`qtdEleitoresQueVotaram` AS eleicao_qtdEleitoresQueVotaram
+FROM
+     `candidato` candidato INNER JOIN `eleicao_has_candidato` eleicao_has_candidato ON candidato.`idCandidato` = eleicao_has_candidato.`candidato_idCandidato`
+     INNER JOIN `eleicao` eleicao ON eleicao_has_candidato.`eleicao_ideleicao` = eleicao.`ideleicao`
+WHERE eleicao.`ideleicao` = $P{idEleicao}
+order by candidato.`qtdVotosRecebidos` desc;]]>
+	</queryString>
+	<field name="candidato_idCandidato" class="java.lang.Integer"/>
+	<field name="candidato_nome" class="java.lang.String"/>
+	<field name="candidato_numero" class="java.lang.Integer"/>
+	<field name="candidato_foto" class="java.lang.Object"/>
+	<field name="candidato_qtdVotosRecebidos" class="java.lang.Double"/>
+	<field name="eleicao_has_candidato_eleicao_ideleicao" class="java.lang.Integer"/>
+	<field name="eleicao_has_candidato_candidato_idCandidato" class="java.lang.Integer"/>
+	<field name="eleicao_ideleicao" class="java.lang.Integer"/>
+	<field name="eleicao_nome" class="java.lang.String"/>
+	<field name="eleicao_dataInicial" class="java.sql.Timestamp"/>
+	<field name="eleicao_dataFinal" class="java.sql.Timestamp"/>
+	<field name="eleicao_tipoEleicao" class="java.lang.String"/>
+	<field name="eleicao_qtdVotosBrancos" class="java.lang.Integer"/>
+	<field name="eleicao_qtdVotosNulos" class="java.lang.Integer"/>
+	<field name="eleicao_qtdEleitoresQueVotaram" class="java.lang.Integer"/>
+	<group name="candidato_nome">
+		<groupExpression><![CDATA[$F{candidato_nome}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="206" y="20" width="172" height="40" uuid="3690d6e1-263d-47fa-b991-bf5278c34bbf"/>
+				<textElement>
+					<font fontName="Arial Black" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório Eleição]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="2bb513ef-0faf-47e7-966e-805a8f3fee22"/>
+				<text><![CDATA[Eleição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="31" height="20" uuid="f1eb8e85-9dc5-4875-a620-5985f85a32b3"/>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="31" y="20" width="88" height="20" uuid="b51fa88f-426e-4189-a135-71e8425b33fa"/>
+				<textFieldExpression><![CDATA[$F{eleicao_nome}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="119" y="20" width="1" height="20" uuid="08e34746-3446-4a6a-a110-f462031704ef"/>
+			</line>
+			<line>
+				<reportElement x="0" y="39" width="555" height="1" uuid="36fe176c-4e95-46fc-8b62-8a1711156506"/>
+			</line>
+			<line>
+				<reportElement x="145" y="0" width="1" height="20" uuid="cf2e0bb4-c601-4a07-ac4b-cdb1dac24033"/>
+			</line>
+			<staticText>
+				<reportElement x="120" y="19" width="100" height="20" uuid="42b325aa-35b7-40eb-9d8b-59ef736c94ba"/>
+				<text><![CDATA[Qtd Votos Brancos:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="220" y="19" width="18" height="20" uuid="eaa03003-aa46-4507-8d94-5f6e6375cfa7"/>
+				<textFieldExpression><![CDATA[$F{eleicao_qtdVotosBrancos}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="238" y="19" width="1" height="20" uuid="7cb3b192-350f-4f5e-8f5b-b0c7217ab64e"/>
+			</line>
+			<staticText>
+				<reportElement x="239" y="19" width="81" height="20" uuid="63393baa-2960-4900-8dc6-e747fcd39a41"/>
+				<text><![CDATA[Qtd Votos Nulos:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="320" y="19" width="40" height="20" uuid="8f8cf597-8992-421b-bb14-9f68df00f01f"/>
+				<textFieldExpression><![CDATA[$F{eleicao_qtdVotosNulos}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="360" y="19" width="1" height="20" uuid="606013f0-9266-4e34-ba47-b442b6bc378b"/>
+			</line>
+			<staticText>
+				<reportElement x="361" y="19" width="28" height="20" uuid="ebe54459-ef51-4506-ac16-0450ef4ac609"/>
+				<text><![CDATA[Tipo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="389" y="19" width="123" height="20" uuid="f0866d8b-0fb5-48b0-b9ee-75e381efb10d"/>
+				<textFieldExpression><![CDATA[$F{eleicao_tipoEleicao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="65" height="20" uuid="9331c311-f306-42c4-aca5-7fcd7680df76"/>
+				<text><![CDATA[Data Inicial:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="65" y="40" width="100" height="20" uuid="74c43362-1784-47aa-b85f-0dd2f31a79c2"/>
+				<textFieldExpression><![CDATA[$F{eleicao_dataInicial}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="165" y="39" width="1" height="21" uuid="d89e4a87-67f2-4d4a-8ffe-48202c5ea79c"/>
+			</line>
+			<staticText>
+				<reportElement x="166" y="39" width="54" height="20" uuid="e7d809f8-d513-442b-9ecc-ba464a4548f3"/>
+				<text><![CDATA[Data Final:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="220" y="40" width="100" height="20" uuid="8cfba533-f271-4d98-90ea-3235e41a8c36"/>
+				<textFieldExpression><![CDATA[$F{eleicao_dataFinal}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="239" y="1" width="1" height="20" uuid="f1221efb-ec8a-42c8-b449-10870ec71434"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="52" height="20" uuid="e58042a5-5e9d-4400-94e1-604986b1553a"/>
+				<text><![CDATA[Candidato:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="52" y="1" width="81" height="20" uuid="246ef936-3578-4998-9353-af8fd9a4f436"/>
+				<textFieldExpression><![CDATA[$F{candidato_nome}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="e6b23726-3e18-4755-8e10-aa0f4a0737ca"/>
+			</line>
+			<line>
+				<reportElement x="133" y="1" width="1" height="18" uuid="1cdfe959-fc45-4a10-b442-c71f61c06894"/>
+			</line>
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" uuid="127d1076-214d-416e-8999-ed7af407cb9a"/>
+			</line>
+			<staticText>
+				<reportElement x="134" y="0" width="44" height="20" uuid="f889abc4-8c31-4bf8-830d-fc12f707954f"/>
+				<text><![CDATA[Número:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="178" y="2" width="60" height="17" uuid="0d248ec7-e3aa-48ab-ad30-c4bd024e9bdd"/>
+				<textFieldExpression><![CDATA[$F{candidato_numero}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="240" y="2" width="1" height="17" uuid="a3a8f623-4486-4403-8ab8-4cfe0804e3e0"/>
+			</line>
+			<staticText>
+				<reportElement x="241" y="2" width="120" height="20" uuid="4631d5c3-cdb7-431b-a639-636e32e2180f"/>
+				<text><![CDATA[Qtd de Votos Recebidos:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="361" y="1" width="100" height="20" uuid="b0f17d32-81e3-47c1-9011-021f1ede7c91"/>
+				<textFieldExpression><![CDATA[$F{candidato_qtdVotosRecebidos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
